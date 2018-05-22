@@ -57,6 +57,14 @@
           internationalization.</li>
       </ul>
 
+      <h1>About the Team</h1>
+      <p>
+        <li><strong>Team Advisor:</strong> Emily To</li>
+        <li></strong>Team 16 Members:</strong> Margaret Pazos-Zarza,
+        Rafael Rivas, Rebecca Zeng, Winnie Wang</li>
+      </p>
+
+
       <p>
         This is your code now. Get familiar with it and get comfortable
         working with your team to plan and make changes. Start by updating the
