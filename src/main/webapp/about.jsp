@@ -16,13 +16,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CodeU Chat App</title>
+  <title>About</title>
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 
   <nav>
-    <a id="navTitle" href="/">CodeU Chat App</a>
+    <a id="navTitle" href="/">Chatty Lambas Chat App</a>
     <a href="/conversations">Conversations</a>
     <% if(request.getSession().getAttribute("user") != null){ %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
@@ -56,6 +56,14 @@
           requirements, privacy concerns, and accessibility and
           internationalization.</li>
       </ul>
+
+      <h1>About the Team</h1>
+      <p>
+        <li><strong>Team Advisor:</strong> Emily To</li>
+        <li></strong>Team 16 Members:</strong> Margaret Pazos-Zarza,
+        Rafael Rivas, Rebecca Zeng, Winnie Wang</li>
+      </p>
+
 
       <p>
         This is your code now. Get familiar with it and get comfortable
