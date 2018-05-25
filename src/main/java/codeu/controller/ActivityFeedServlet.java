@@ -35,7 +35,7 @@ public class ActivityFeedServlet extends HttpServlet {
    * Sets the ConversationStore used by this servlet. This function provides a common setup method
    * for use by the test framework or the servlet's init() function.
    */
-  void setConversationStore(ConversationStore conversationStore) {
+  public void setConversationStore(ConversationStore conversationStore) {
     this.conversationStore = conversationStore;
   }
 
@@ -46,8 +46,8 @@ public class ActivityFeedServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-        response.getOutputStream().println("This is the temporary activity feed page.");
-        //request.getRequestDispatcher("/WEB-INF/view/activity").forward(request, response);
+        //response.getOutputStream().println("This is the temporary activity feed page.");
+        request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
   }
 
   /**
