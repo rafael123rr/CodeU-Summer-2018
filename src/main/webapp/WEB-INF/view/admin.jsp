@@ -25,6 +25,8 @@
     <a id="navTitle" href="/">Chatty Lambdas Chat App</a>
     <a href="/conversations">Conversations</a>
     <a href="/about.jsp">About</a>
+    <a href="/admin.jsp">About</a>
+
   </nav>
 
 
@@ -36,10 +38,8 @@
       <h2>Welcome!</h2>
 
       <ul>
-        <li>Go to the <a href="/conversations">conversations</a> page to
-            create or join a conversation.</li>
-        <li>View the <a href="/about.jsp">about</a> page to learn more about the
-            project.</li>
+        <li>Number of users on the platform: ${numUsers}</li>
+        <li>Number of total conversations: </li>
 
       </ul>
     </div>

@@ -15,13 +15,19 @@
 package codeu.controller;
 
 import codeu.model.data.User;
+import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.repackaged.com.google.datastore.v1.Datastore;
 import org.mindrot.jbcrypt.BCrypt;
 
 /** Servlet class responsible for the login page. */
@@ -29,6 +35,7 @@ public class AdminServlet extends HttpServlet {
 
     /** Store class that gives access to Users. */
     private UserStore userStore;
+    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
 
     /**
      * Set up state for handling login-related requests. This method is only called when running in a
@@ -55,7 +62,9 @@ public class AdminServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+        request.setAttribute("numUsers", userStore.numUsers());
         request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
+
     }
 
     /**
@@ -68,22 +77,7 @@ public class AdminServlet extends HttpServlet {
             throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
         User user = userStore.getUser(username);
 
-        if (!userStore.isUserRegistered(username) || !user.isAdmin()) {
-            request.setAttribute("error", "That admin username was not found.");
-            request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
-            return;
-        }
-
-
-        if (!BCrypt.checkpw(password, user.getPasswordHash())) {
-            request.setAttribute("error", "Please enter a correct password.");
-            request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
-            return;
-        }
-
-        request.getSession().setAttribute("user", username);
     }
 }
