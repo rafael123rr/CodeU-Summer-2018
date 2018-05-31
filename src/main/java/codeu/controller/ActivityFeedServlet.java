@@ -50,7 +50,8 @@ public class ActivityFeedServlet extends HttpServlet {
   }
 
   /**
-   *
+   * Temporary doPost method (not sure if activity feed requires this yet)
+   * If the user submits any info to the page, this method will be used.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
