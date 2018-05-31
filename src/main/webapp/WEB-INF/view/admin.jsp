@@ -39,7 +39,8 @@
 
       <ul>
         <li>Number of users on the platform: ${numUsers}</li>
-        <li>Number of total conversations: </li>
+        <li>Number of total conversations: ${numConversations}</li>
+        <li>Number of total messages: ${numMessages}</li>
 
       </ul>
     </div>

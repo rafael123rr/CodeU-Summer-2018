@@ -41,6 +41,13 @@ public class ConversationStore {
   }
 
   /**
+   * Returns number of conversations
+   */
+  public static int numConversations() {
+    return instance.conversations.size();
+  }
+
+  /**
    * Instance getter function used for testing. Supply a mock for PersistentStorageAgent.
    *
    * @param persistentStorageAgent a mock used for testing
