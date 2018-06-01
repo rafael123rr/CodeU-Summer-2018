@@ -47,16 +47,6 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>ProfileServlet</servlet-name>
-    <servlet-class>codeu.controller.ProfileServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>ProfileServlet</servlet-name>
-    <url-pattern>/profile</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
     <servlet-name>ChatServlet</servlet-name>
     <servlet-class>codeu.controller.ChatServlet</servlet-class>
   </servlet>
@@ -65,7 +55,7 @@
     <servlet-name>ChatServlet</servlet-name>
     <url-pattern>/chat/*</url-pattern>
   </servlet-mapping>
-  
+
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>codeu.controller.RegisterServlet</servlet-class>
@@ -74,6 +64,16 @@
   <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ActivityFeedServlet</servlet-name>
+    <servlet-class>codeu.controller.ActivityFeedServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ActivityFeedServlet</servlet-name>
+    <url-pattern>/activity.jsp</url-pattern>
   </servlet-mapping>
 
 </web-app>
