@@ -56,7 +56,7 @@
     <url-pattern>/conversations</url-pattern>
   </servlet-mapping>
 
-  <servlet>
+  <!-- <servlet>
     <servlet-name>ProfileServlet</servlet-name>
     <servlet-class>codeu.controller.ProfileServlet</servlet-class>
   </servlet>
@@ -64,7 +64,7 @@
   <servlet-mapping>
     <servlet-name>ProfileServlet</servlet-name>
     <url-pattern>/profile</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
 
   <servlet>
     <servlet-name>ChatServlet</servlet-name>
@@ -75,7 +75,7 @@
     <servlet-name>ChatServlet</servlet-name>
     <url-pattern>/chat/*</url-pattern>
   </servlet-mapping>
-  
+
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>codeu.controller.RegisterServlet</servlet-class>
