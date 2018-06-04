@@ -77,22 +77,13 @@ public class LoginServlet extends HttpServlet {
 
     User user = userStore.getUser(username);
 
-
     if (!BCrypt.checkpw(password, user.getPasswordHash())) {
       request.setAttribute("error", "Please enter a correct password.");
       request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
       return;
     }
 
-    if (!username.equals("admin".toString())) {
-        System.out.println(user.isAdmin());
-        System.out.println(username);
-        request.getSession().setAttribute("user", username);
-        response.sendRedirect("/conversations");
-    } else {
-        System.out.println("yay");
-        request.getSession().setAttribute("user", username);
-        response.sendRedirect("/admin");
-    }
+    request.getSession().setAttribute("user", username);
+    response.sendRedirect("/activity.jsp");
   }
 }
