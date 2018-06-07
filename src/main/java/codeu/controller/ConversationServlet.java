@@ -71,6 +71,7 @@ public class ConversationServlet extends HttpServlet {
   void editMessage(String newContent) {
     MessageStore messageStore = MessageStore.getInstance();
     messageStore.editMessage(messageStore.getMessagesInConversation(), /* chosen message's id */, newContent);
+
   }
 
   /**
