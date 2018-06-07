@@ -37,6 +37,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>codeu.controller.AdminServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>ConversationServlet</servlet-name>
     <servlet-class>codeu.controller.ConversationServlet</servlet-class>
   </servlet>
