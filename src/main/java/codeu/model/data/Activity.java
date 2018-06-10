@@ -9,11 +9,8 @@ public class Activity {
   public final UUID id;
   public final Instant creationTime;
 
-
   public enum Type {
-    USER_JOINED,
-    CONVERSATION_CREATED,
-    MESSAGE_SENT;
+    USER_JOINED, CONVERSATION_CREATED, MESSAGE_SENT;
   }
 
   public Activity(Type type, UUID id, Instant creationTime) {

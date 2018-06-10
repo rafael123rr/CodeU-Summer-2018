@@ -40,7 +40,12 @@ public class MessageStore {
     }
     return instance;
   }
-
+  /**
+   * Returns number of messages
+   */
+  public static int numMessages() {
+    return instance.messages.size();
+  }
   /**
    * Instance getter function used for testing. Supply a mock for PersistentStorageAgent.
    *

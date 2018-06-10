@@ -18,6 +18,7 @@
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%
+List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
 %>
@@ -69,27 +70,32 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       <ul>
     <%
       for (Message message : messages) {
-        String author = UserStore.getInstance()
-          .getUser(message.getAuthorId()).getName();
+        String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
     %>
-      <li><strong><%= author %>:</strong> <%= message.getContent() %></li>
-    <%
-      }
-    %>
+      <li><strong><%= author %>:</strong>
+        <%= message.getContent() %>
+        <%-- <% UUID userId = request.getSession().getAttribute("currentUser").getId();
+        if (message.getAuthorId().equals(userId)) { %> --%>
+          <button type="button">Edit</button>
+          <button type="button">Delete</button>
+    <%} %></li>
+
       </ul>
     </div>
 
     <hr/>
 
-    <% if (request.getSession().getAttribute("user") != null) { %>
-    <form action="/chat/<%= conversation.getTitle() %>" method="POST">
-        <input type="text" name="message">
-        <br/>
-        <button type="submit">Send</button>
+    <%
+        if (request.getSession().getAttribute("user") != null) { %>
+          <form action="/chat/<%= conversation.getTitle() %>" method="POST">
+          <input type="text" name="message">
+          <br/>
+          <button type="submit">Send</button>
     </form>
     <% } else { %>
-      <p><a href="/login">Login</a> to send a message.</p>
-    <% } %>
+          <p><a href="/login">Login</a> to send a message.</p>
+    <%
+    }%>
 
     <hr/>
 

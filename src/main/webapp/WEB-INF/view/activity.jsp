@@ -52,7 +52,6 @@
     <h1><strong>Activity Feed</strong></h1>
     <% List<Activity> activities = (List<Activity>) request.getAttribute("activities");
        List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
-       //List<User> users = (List<User>) request.getAttribute("users");
        UserStore users = (UserStore) request.getAttribute("users");
 
        if (conversations.isEmpty()) {
@@ -61,6 +60,7 @@
     <% }
       else {
         for (Conversation conversation : conversations) { %>
+
             <ul style ="list-style: none;">
             <li><a href="/chat/<%= conversation.getTitle() %>">
               <%= conversation.getTitle() %></a></li>

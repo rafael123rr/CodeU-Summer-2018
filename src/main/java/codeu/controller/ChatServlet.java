@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import org.kefirsf.bb.BBProcessorFactory;
+import org.kefirsf.bb.TextProcessor;
 
 /** Servlet class responsible for the chat page. */
 public class ChatServlet extends HttpServlet {
@@ -142,6 +144,11 @@ public class ChatServlet extends HttpServlet {
 
     // this removes any HTML from the message content
     String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
+
+    //Parses message to change message from BBcode to html with basic tags
+    TextProcessor processor = BBProcessorFactory.getInstance().create();
+    cleanedMessageContent = processor.process(cleanedMessageContent);
+    cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages​());
 
     Message message =
         new Message(

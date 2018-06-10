@@ -105,7 +105,12 @@ public class UserStore {
     users.add(user);
     persistentStorageAgent.writeThrough(user);
   }
-
+  /**
+   * Returns the number of total users.
+   */
+  public int numUsers() {
+    return users.size();
+  }
   /**
    * Update an existing User.
    */
