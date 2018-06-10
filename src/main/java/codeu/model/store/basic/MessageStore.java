@@ -85,6 +85,22 @@ public class MessageStore {
     return messagesInConversation;
   }
 
+  public Message getMessageInConversation(List<Message> messages, UUID messageId) {
+
+    int counter = 0, positonOfMessage = 0;
+
+    for (Message message : messages) {
+      if (message.getId().equals(messageId)) {
+        positonOfMessage = counter;
+        break;
+      }
+      counter++;
+    }
+
+    return messages.get(positonOfMessage);
+  }
+
+
   /** Sets the List of Messages stored by this MessageStore. */
   public void setMessages(List<Message> messages) {
     this.messages = messages;
