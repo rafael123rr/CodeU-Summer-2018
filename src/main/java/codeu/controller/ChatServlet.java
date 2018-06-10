@@ -79,6 +79,16 @@ public class ChatServlet extends HttpServlet {
   }
 
   /**
+   * Changes the message from the previous message in MessageStore to the new message
+   * given by the input from the user's reply to the prompt box - called in the POST method
+   */
+  // TODO: figure out where to call this function; perhaps something onClick with btn
+  void editMessage(UUID conversationID, String newContent) {
+    messageStore.editMessage(messageStore.getMessagesInConversation(conversationID), 999, newContent);
+  }
+
+
+  /**
    * This function fires when a user navigates to the chat page. It gets the conversation title from
    * the URL, finds the corresponding Conversation, and fetches the messages in that Conversation.
    * It then forwards to chat.jsp for rendering.
