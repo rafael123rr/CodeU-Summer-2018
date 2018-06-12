@@ -14,8 +14,10 @@
   limitations under the License.
 --%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.UUID" %>
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.data.Message" %>
+<%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%
 List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
@@ -69,16 +71,20 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <div id="chat">
       <ul>
     <%
+      String currentUser = UserStore.getInstance().getUser(conversation.getOwnerId().getName());
       for (Message message : messages) {
-        String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
+        String author = UserStore.getInstance().getUser(message.getAuthorId().getName());
     %>
       <li><strong><%= author %>:</strong>
         <%= message.getContent() %>
-        <%-- <% UUID userId = request.getSession().getAttribute("currentUser").getId();
-        if (message.getAuthorId().equals(userId)) { %> --%>
-          <button type="button">Edit</button>
-          <button type="button">Delete</button>
-    <%} %></li>
+        <%
+          User user = (User) request.getSession().getAttribute("currentUser");
+          UUID userId = user.getId(); //causes an exception
+          if (message.getAuthorId().equals(userId)) { %>
+            <button type="button">Edit</button>
+            <button type="button">Delete</button>
+    <%    }
+      }%></li>
 
       </ul>
     </div>
