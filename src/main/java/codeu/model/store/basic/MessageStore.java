@@ -85,6 +85,7 @@ public class MessageStore {
     return messagesInConversation;
   }
 
+/** Access a Message based on the message id and a conversation of messages */
   public Message getMessageInConversation(List<Message> messages, UUID messageId) {
 
     int counter = 0, positonOfMessage = 0;
