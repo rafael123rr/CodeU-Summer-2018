@@ -16,22 +16,15 @@ public class ActivityStore {
   // private static int maxElements;
   private static Activity activity;
   private static ActivityStore instance;
+  private PersistentStorageAgent persistentStorageAgent;
+  private List<Activity> activities;
+
 
   public static ActivityStore getInstance() {
     if (instance == null) {
       instance = new ActivityStore(PersistentStorageAgent.getInstance());
     }
     return instance;
-  }
-
-  private PersistentStorageAgent persistentStorageAgent;
-
-  private List<Activity> activities;
-
-  /** This class is a singleton, so its constructor is private. Call getInstance() instead. */
-  private ActivityStore(PersistentStorageAgent persistentStorageAgent) {
-    this.persistentStorageAgent = persistentStorageAgent;
-    activities = new ArrayList<>();
   }
 
   /** Access the current set of conversations known to the application. */
@@ -42,5 +35,11 @@ public class ActivityStore {
   /** Sets the List of Messages stored by this MessageStore. */
   public void setActivities(List<Activity> activities) {
     this.activities = activities;
+  }
+
+  /** This class is a singleton, so its constructor is private. Call getInstance() instead. */
+  private ActivityStore(PersistentStorageAgent persistentStorageAgent) {
+    this.persistentStorageAgent = persistentStorageAgent;
+    activities = new ArrayList<>();
   }
 }
