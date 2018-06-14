@@ -84,6 +84,6 @@ public class LoginServlet extends HttpServlet {
     }
 
     request.getSession().setAttribute("user", username);
-    response.sendRedirect("/conversations");
+    response.sendRedirect("/activity.jsp");
   }
 }
