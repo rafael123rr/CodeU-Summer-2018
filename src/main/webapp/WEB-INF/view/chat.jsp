@@ -44,11 +44,26 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     };
   </script>
 </head>
+
 <body onload="scrollChat()">
 
   <nav>
     <%@include file="navbar.jsp"%>
   </nav>
+
+<!-- This is the test UI for the pop up box -->
+    <button onclick="getMessageId()">Try it</button>
+    <script>
+    function getMessageId() {
+        var message = "/* get the current message or current message ID here */";
+        var previousMessage = prompt("Please enter your new message", "/* get the content of the current message here */");
+        console.log("/* put the current message id here for debugging purposes */");
+    }
+
+    </script>
+
+<!-- End of the test UI for the pop up box -->
+
 
   <div id="container">
 
