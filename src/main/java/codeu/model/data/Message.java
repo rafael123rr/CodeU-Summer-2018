@@ -23,7 +23,7 @@ public class Message {
   private final UUID id;
   private final UUID conversation;
   private final UUID author;
-  private final String content;
+  private String content;
   private final Instant creation;
 
   /**
@@ -61,6 +61,10 @@ public class Message {
   /** Returns the text content of this Message. */
   public String getContent() {
     return content;
+  }
+
+  public void setContent(String newContent) {
+    content = newContent;
   }
 
   /** Returns the creation time of this Message. */

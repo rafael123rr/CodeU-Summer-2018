@@ -17,6 +17,7 @@ package codeu.controller;
 import codeu.model.data.Conversation;
 import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
+import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.time.Instant;
@@ -61,6 +62,15 @@ public class ConversationServlet extends HttpServlet {
    */
   void setConversationStore(ConversationStore conversationStore) {
     this.conversationStore = conversationStore;
+  }
+
+  /**
+   * Changes the message from the previous message in MessageStore to the new message
+   * given by the input from the user's reply to the prompt box
+   */
+  void editMessage(String newContent) {
+    MessageStore messageStore = MessageStore.getInstance();
+    messageStore.editMessage(messageStore.getMessagesInConversation(), /* chosen message's id */, newContent);
   }
 
   /**

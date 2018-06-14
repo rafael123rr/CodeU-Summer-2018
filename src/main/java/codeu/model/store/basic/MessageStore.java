@@ -94,4 +94,12 @@ public class MessageStore {
   public void setMessages(List<Message> messages) {
     this.messages = messages;
   }
+  /** Changes the stored message in the given message */
+  public void editMessage(List<Message> messages, UUID messageToChangeID, String newContent) {
+    for (Message msg : messages) {
+      if (msg.getId() == messageToChangeID) {
+        msg.setContent(newContent);
+      }
+    }
+  }
 }
