@@ -51,7 +51,7 @@ public class Conversation {
   public UUID getOwnerId() {
     return owner;
   }
-
+  
   /** Returns the title of this Conversation. */
   public String getTitle() {
     return title;

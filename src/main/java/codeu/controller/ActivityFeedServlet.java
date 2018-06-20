@@ -2,8 +2,10 @@ package codeu.controller;
 
 import codeu.model.data.Conversation;
 import codeu.model.data.User;
+import codeu.model.data.Activity;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.UserStore;
+import codeu.model.store.basic.ActivityStore;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
@@ -17,14 +19,19 @@ public class ActivityFeedServlet extends HttpServlet {
 
   /** Store class that gives access to Users. */
   private UserStore userStore;
+
+  /** Store class that gives access to Conversations. */
   private ConversationStore conversationStore;
 
-  /** Prototype does not fetch data yet. */
+  /** Store class that gives acces to Activities. */
+  private ActivityStore activityStore;
 
   /** Sets up state for handling login-related requests.*/
   public void init() throws ServletException {
     super.init();
     setUserStore(UserStore.getInstance());
+    setConversationStore(ConversationStore.getInstance());
+    setActivityStore(ActivityStore.getInstance());
   }
 
   public void setUserStore(UserStore userStore) {
@@ -40,22 +47,38 @@ public class ActivityFeedServlet extends HttpServlet {
   }
 
   /**
+   * Sets the ActivityStore used by this servlet. This function provides a common setup method
+   * for use by the test framework or the servlet's init() function.
+   */
+  public void setActivityStore(ActivityStore activityStore) {
+    this.activityStore = activityStore;
+  }
+
+  /**
    * This function fires when a user navigates to the activity page. It gets all of the
    * activity from the model and forwards to activity.jsp for rendering the list.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
+        List<Conversation> conversations = conversationStore.getAllConversations();
+        request.setAttribute("conversations", conversations);
+        request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
+        List<Activity> activities = activityStore.getActivities();
+        request.setAttribute("activities", activities);
         request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
   }
 
   /**
-   * Temporary doPost method (not sure if activity feed requires this yet)
-   * If the user submits any info to the page, this method will be used.
+   * might not need a doPost method
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-
+        String username = (String) request.getSession().getAttribute("user");
+        if (username == null) {
+          response.sendRedirect("/login");
+        }
+        return;
   }
 }
