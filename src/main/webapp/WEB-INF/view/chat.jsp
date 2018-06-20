@@ -78,16 +78,9 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
       <li><strong><%= author %>:</strong>
         <%= message.getContent() %>
         <%
-          // String username = request.getParameter("username");
-          // String password = request.getParameter("password");
-          // request.setAttribute("username", username);
-          // request.setAttribute("password", password);
-          // User user = thisUserStore.getUser(username);
-          // UUID userId = user.getId(); //causes an exception
-          //if (message.getAuthorId().equals(userId)) { %> <!-- buttons show if IDs are deep-equals -->
             <button type="button">Edit</button>
             <button type="button">Delete</button>
-          //  <% }
+        <% }
       %>
       </li>
       </ul>
