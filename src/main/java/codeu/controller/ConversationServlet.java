@@ -65,15 +65,6 @@ public class ConversationServlet extends HttpServlet {
   }
 
   /**
-   * Changes the message from the previous message in MessageStore to the new message
-   * given by the input from the user's reply to the prompt box
-   */
-  void editMessage(String newContent) {
-    MessageStore messageStore = MessageStore.getInstance();
-    messageStore.editMessage(messageStore.getMessagesInConversation(), /* chosen message's id */, newContent);
-  }
-
-  /**
    * This function fires when a user navigates to the conversations page. It gets all of the
    * conversations from the model and forwards to conversations.jsp for rendering the list.
    */
