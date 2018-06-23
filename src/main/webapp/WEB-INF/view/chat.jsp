@@ -48,6 +48,7 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     };
   </script>
 </head>
+
 <body onload="scrollChat()">
 
   <nav>
@@ -61,6 +62,20 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     <a href="/about.jsp">About</a>
     <a href="/activity.jsp">Activity</a>
   </nav>
+
+<!-- This is the test UI for the pop up box -->
+    <button onclick="getMessageId()">Try it</button>
+    <script>
+    function getMessageId() {
+        var message = "/* get the current message or current message ID here */";
+        var previousMessage = prompt("Please enter your new message", "/* get the content of the current message here */");
+        console.log("/* put the current message id here for debugging purposes */");
+    }
+
+    </script>
+
+<!-- End of the test UI for the pop up box -->
+
 
   <div id="container">
 
