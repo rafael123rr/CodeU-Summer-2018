@@ -77,11 +77,12 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     %>
       <li><strong><%= author %>:</strong>
         <%= message.getContent() %>
-        <%
+        <!-- buttons show if IDs are deep-equals -->
             <button type="button">Edit</button>
             <button type="button">Delete</button>
         <% }
-      %>
+        //}
+        %>
       </li>
       </ul>
     </div>
