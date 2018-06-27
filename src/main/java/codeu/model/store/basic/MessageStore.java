@@ -88,17 +88,13 @@ public class MessageStore {
 /** Access a Message based on the message id and a conversation of messages */
   public Message getMessageInConversation(List<Message> messages, UUID messageId) {
 
-    int counter = 0, positonOfMessage = 0;
+    int counter = 0;
 
-    for (Message message : messages) {
-      if (message.getId().equals(messageId)) {
-        positonOfMessage = counter;
-        break;
-      }
+    while (counter < messages.size() && messages.get(counter).getId() != messageId) {
       counter++;
     }
 
-    return messages.get(positonOfMessage);
+    return messages.get(counter);
   }
 
 
