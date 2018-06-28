@@ -90,6 +90,19 @@ public class MessageStore {
     return messagesInConversation;
   }
 
+/** Access a Message based on the message id and a conversation of messages */
+  public Message getMessageInConversation(List<Message> messages, UUID messageId) {
+
+    int counter = 0;
+
+    while (counter < messages.size() && messages.get(counter).getId() != messageId) {
+      counter++;
+    }
+
+    return messages.get(counter);
+  }
+
+
   /** Sets the List of Messages stored by this MessageStore. */
   public void setMessages(List<Message> messages) {
     this.messages = messages;
