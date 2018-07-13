@@ -26,6 +26,7 @@
     <a href="/conversations">Conversations</a>
     <a href="/about.jsp">About</a>
     <a href="/admin.jsp">About</a>
+    <a href="/activity.jsp">About</a>
 
   </nav>
 

@@ -14,14 +14,18 @@
   limitations under the License.
 --%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.UUID" %>
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.data.Message" %>
+<%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <c:import url="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
 
 <%
+List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
+UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
 %>
 
 <!DOCTYPE html>
@@ -50,7 +54,15 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 <body onload="scrollChat()">
 
   <nav>
-    <%@include file="navbar.jsp"%>
+    <a id="navTitle" href="/">Chatty Lambdas Chat App</a>
+    <a href="/conversations">Conversations</a>
+      <% if (request.getSession().getAttribute("user") != null) { %>
+    <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
+    <% } else { %>
+      <a href="/login">Login</a>
+    <% } %>
+    <a href="/about.jsp">About</a>
+    <a href="/activity.jsp">Activity</a>
   </nav>
 
 <!-- This is the test UI for the pop up box -->
@@ -85,27 +97,33 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       <ul>
     <%
       for (Message message : messages) {
-        String author = UserStore.getInstance()
-          .getUser(message.getAuthorId()).getName();
+        String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
     %>
-      <li><strong><%= author %>:</strong> <%= message.getContent() %></li>
-    <%
-      }
-    %>
+      <li><strong><%= author %>:</strong>
+        <%= message.getContent() %>
+        <!-- buttons show if IDs are deep-equals -->
+            <button type="button">Edit</button>
+            <button type="button">Delete</button>
+        <% }
+        //}
+        %>
+      </li>
       </ul>
     </div>
 
     <hr/>
 
-    <% if (request.getSession().getAttribute("user") != null) { %>
-    <form action="/chat/<%= conversation.getTitle() %>" method="POST">
-        <input type="text" name="message">
-        <br/>
-        <button type="submit">Send</button>
+    <%
+        if (request.getSession().getAttribute("user") != null) { %>
+          <form action="/chat/<%= conversation.getTitle() %>" method="POST">
+          <input type="text" name="message">
+          <br/>
+          <button type="submit">Send</button>
     </form>
     <% } else { %>
-      <p><a href="/login">Login</a> to send a message.</p>
-    <% } %>
+          <p><a href="/login">Login</a> to send a message.</p>
+    <%
+    }%>
 
     <hr/>
 

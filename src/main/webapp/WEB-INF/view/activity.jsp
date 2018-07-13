@@ -3,7 +3,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.data.Message" %>
+<%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
+<%@ page import="codeu.model.store.basic.ConversationStore" %>
+<%@ page import="codeu.model.data.Activity" %>
+<%@ page import="codeu.model.store.basic.ActivityStore" %>
 
 <!DOCTYPE html>
 <html>
@@ -29,28 +33,41 @@
     </script>
   </head>
   <body>
-    <h1>This is the activity page.</p>
 
     <nav>
-      <%@include file="navbar.jsp"%>
+      <a id="navTitle" href="/">Chatty Lambdas Chat App</a>
+      <a href="/conversations">Conversations</a>
+        <% if (request.getSession().getAttribute("user") != null) { %>
+      <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
+      <% } else { %>
+        <a href="/login">Login</a>
+      <% } %>
+      <a href="/about.jsp">About</a>
+      <a href="/activity.jsp">Activity</a>
     </nav>
 
-      <div id="container">
-        <!--blank for now-->
-      </div>
+    <% if (request.getSession().getAttribute("user") == null) { %>
+      <p><a href="/login">Login</a> to see your activity.</p>
+    <% } %>
+    <h1><strong>Activity Feed</strong></h1>
+    <% List<Activity> activities = (List<Activity>) request.getAttribute("activities");
+       List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
+       UserStore users = (UserStore) request.getAttribute("users");
 
-      <div id="chat">
-        <!--blank for now-->
-      </div>
+       if (conversations.isEmpty()) {
+    %>
+      <p>Start a conversation to add to your activity feed.</p>
+    <% }
+      else {
+        for (Conversation conversation : conversations) { %>
 
-      <hr/>
-
-      <% if (request.getSession().getAttribute("user") == null) { %>
-        <p><a href="/login">Login</a> to see your activity.</p>
-      <% } %>
-
-      <hr/>
-
+            <ul style ="list-style: none;">
+            <li><a href="/chat/<%= conversation.getTitle() %>">
+              <%= conversation.getTitle() %></a></li>
+            </ul>
+    <% }
+      }
+    %>
     </div>
   </body>
 </html>
