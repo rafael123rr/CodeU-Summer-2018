@@ -17,6 +17,8 @@
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
+<c:import url="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
+
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
@@ -55,9 +57,16 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <button onclick="getMessageId()">Try it</button>
     <script>
     function getMessageId() {
-        var message = "/* get the current message or current message ID here */";
+        var currMessage = "/* get the current message or current message ID here */";
         var previousMessage = prompt("Please enter your new message", "/* get the content of the current message here */");
         console.log("/* put the current message id here for debugging purposes */");
+        $.ajax({
+            url: '/src/java/codeu/controller/ChatServlet',
+            data: {
+                postVariableName: currMessage
+            },
+            type: 'POST'
+        });​
     }
 
     </script>
