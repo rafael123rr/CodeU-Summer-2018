@@ -89,6 +89,8 @@ public class ChatServlet extends HttpServlet {
     String requestUrl = request.getRequestURI();
     String conversationTitle = requestUrl.substring("/chat/".length());
 
+    String loggedInUser = (String)request.getSession().getAttribute("user");
+
     Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
     if (conversation == null) {
       // couldn't find conversation, redirect to conversation list
@@ -117,19 +119,16 @@ public class ChatServlet extends HttpServlet {
       throws IOException, ServletException {
 
     String username = (String) request.getSession().getAttribute("user");
+    String password = (String) request.getSession().getAttribute("password");
+    User user = userStore.getUser(username);
+    //User thisUser = userStore.getId(username);
+    request.getSession().setAttribute("currentUser", username);
+    request.getSession().setAttribute("password", password);
     if (username == null) {
       // user is not logged in, don't let them add a message
       response.sendRedirect("/login");
-      return;
+      //return;
     }
-
-    User user = userStore.getUser(username);
-    if (user == null) {
-      // user was not found, don't let them add a message
-      response.sendRedirect("/login");
-      return;
-    }
-
     String requestUrl = request.getRequestURI();
     String conversationTitle = requestUrl.substring("/chat/".length());
 

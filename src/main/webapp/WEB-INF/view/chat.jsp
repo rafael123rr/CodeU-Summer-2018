@@ -78,10 +78,17 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
       <li><strong><%= author %>:</strong>
         <%= message.getContent() %>
         <!-- buttons show if IDs are deep-equals -->
-            <button type="button">Edit</button>
-            <button type="button">Delete</button>
-        <% }
-        //}
+            <%
+              UUID currMessage = message.getId();
+              String userName = (String) request.getSession().getAttribute("currentUser");
+              User currentUser = UserStore.getInstance().getUser(userName);
+              UUID currentUserId = currentUser.getId();
+            if (currMessage == currentUserId) {
+              %>
+              <button onclick="editMessage()" type="button">Edit</button>
+              <button type="button">Delete</button>
+             <%}
+        }
         %>
       </li>
       </ul>
