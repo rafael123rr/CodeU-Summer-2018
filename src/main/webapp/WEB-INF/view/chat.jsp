@@ -66,19 +66,13 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
   </nav>
 
 <!-- This is the test UI for the pop up box -->
-    <button onclick="getMessageId()">Try it</button>
-    <script>
-    function getMessageId() {
-        var currMessage = "/* get the current message or current message ID here */";
+    <button onclick="editMessage(12312)">Try it</button>
+    <script type="text/javascript">
+    function editMessage(msgID) {
+        var currMessage = msgID;
         var previousMessage = prompt("Please enter your new message", "/* get the content of the current message here */");
         console.log("/* put the current message id here for debugging purposes */");
-        $.ajax({
-            url: '/src/java/codeu/controller/ChatServlet',
-            data: {
-                postVariableName: currMessage
-            },
-            type: 'POST'
-        });​
+
     }
 
     </script>
@@ -95,22 +89,40 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
 
     <div id="chat">
       <ul>
+
+       <script src="http://code.jquery.com/jquery-latest.js"></script>
+       <script type="text/javascript">
+          function edit(messageID, convoID) {
+            console.log("button clicked");
+                 var xhttp = new XMLHttpRequest();
+                 var r = prompt("please tell");
+                 xhttp.open("POST", "/editchat", false);
+                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                 console.log("entered editservlet");
+                 console.log(xhttp.readyState);
+                 xhttp.send(Document);
+
+          }
+       </script>
+
     <%
       for (Message message : messages) {
         String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
     %>
       <li><strong><%= author %>:</strong>
-        <%= message.getContent() %>
+       <span id="<%= message.getId()%>"> <%= message.getContent() %>
         <!-- buttons show if IDs are deep-equals -->
-            <button type="button">Edit</button>
-            <button type="button">Delete</button>
+          <form method="post" action="/editchat">
+          <br/>
+          <input type="button" id="btn" value="edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
+          <button>Delete</button>
+          </form>
         <% }
         //}
         %>
       </li>
       </ul>
     </div>
-
     <hr/>
 
     <%
