@@ -91,19 +91,20 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
       <ul>
 
        <script src="http://code.jquery.com/jquery-latest.js"></script>
-       <script type="text/javascript">
-          function edit(messageID, convoID) {
-            console.log("button clicked");
-                 var xhttp = new XMLHttpRequest();
-                 var r = prompt("please tell");
-                 xhttp.open("POST", "/editchat", false);
-                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                 console.log("entered editservlet");
-                 console.log(xhttp.readyState);
-                 xhttp.send(Document);
+      <script type="text/javascript">
+         function edit(messageID, convoID) {
+           console.log("button clicked");
+                var xhttp = new XMLHttpRequest();
+                var r = prompt("please tell");
+                xhttp.open("POST", "/editchat", true);
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                console.log("entered editservlet");
+                console.log(xhttp.readyState);
+                console.log(messageID);
+                xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+r);
 
-          }
-       </script>
+         }
+      </script>
 
     <%
       for (Message message : messages) {

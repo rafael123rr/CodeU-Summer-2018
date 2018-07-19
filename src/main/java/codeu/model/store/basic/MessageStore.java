@@ -110,9 +110,11 @@ public class MessageStore {
   /** Changes the stored message in the given message */
   public void editMessage(List<Message> messages, UUID messageToChangeID, String newContent) {
     for (Message msg : messages) {
-      if (msg.getId() == messageToChangeID) {
+      if (msg.getId().equals(messageToChangeID)) {
         msg.setContent(newContent);
+        System.out.println("newcontent added in Message Store!" + newContent);
       }
     }
+    System.out.println("inside messageStore but not newcontent");
   }
 }

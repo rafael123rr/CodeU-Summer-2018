@@ -82,8 +82,8 @@ public class EditServlet extends HttpServlet {
      * Changes the message from the previous message in MessageStore to the new message
      * given by the input from the user's reply to the prompt box - called in the POST method
      */
-    // TODO: figure out where to call this function; perhaps something onClick with btn or in the Post request
     void editMessage(UUID conversationID, UUID messageID, String newContent) {
+        System.out.println("inside editMessage of EditServlet");
         messageStore.editMessage(messageStore.getMessagesInConversation(conversationID), messageID, newContent);
     }
 
@@ -110,7 +110,7 @@ public class EditServlet extends HttpServlet {
         System.out.println("Entered into doPost");
         String newMsg = request.getParameter("newMsg");
         System.out.println(newMsg);
-        /*error on this line*/ UUID msgID = UUID.fromString(request.getParameter("msgID"));
+        UUID msgID = UUID.fromString(request.getParameter("msgID"));
         UUID conversationID = UUID.fromString(request.getParameter("conversationID"));
         editMessage(conversationID, msgID, newMsg);
         System.out.println("hey");
