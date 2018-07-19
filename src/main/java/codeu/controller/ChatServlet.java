@@ -158,7 +158,8 @@ public class ChatServlet extends HttpServlet {
     //Parses message to change message from BBcode to html with basic tags
     TextProcessor processor = BBProcessorFactory.getInstance().create();
     cleanedMessageContent = processor.process(cleanedMessageContent);
-    cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages​());
+    cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages());
+
 
     Message message =
         new Message(
@@ -169,8 +170,9 @@ public class ChatServlet extends HttpServlet {
             Instant.now());
 
     messageStore.addMessage(message);
-
     // redirect to a GET request
     response.sendRedirect("/chat/" + conversationTitle);
+
+
   }
 }

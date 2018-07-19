@@ -19,6 +19,8 @@
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
+<c:import url="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
+
 <%
 List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
 Conversation conversation = (Conversation) request.getAttribute("conversation");
@@ -63,19 +65,6 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     <a href="/activity.jsp">Activity</a>
   </nav>
 
-<!-- This is the test UI for the pop up box -->
-    <button onclick="getMessageId()">Try it</button>
-    <script>
-    function getMessageId() {
-        var message = "/* get the current message or current message ID here */";
-        var previousMessage = prompt("Please enter your new message", "/* get the content of the current message here */");
-        console.log("/* put the current message id here for debugging purposes */");
-    }
-
-    </script>
-
-<!-- End of the test UI for the pop up box -->
-
 
   <div id="container">
 
@@ -86,22 +75,36 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
 
     <div id="chat">
       <ul>
+
+      <script type="text/javascript">
+         function edit(messageID, convoID) {
+           console.log("button clicked");
+                var xhttp = new XMLHttpRequest();
+                var newMessage = prompt("What is your new message?");
+                xhttp.open("POST", "/editchat", true);
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+newMessage);
+         }
+      </script>
+
     <%
       for (Message message : messages) {
         String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
     %>
       <li><strong><%= author %>:</strong>
-        <%= message.getContent() %>
+       <span id="<%= message.getId()%>"> <%= message.getContent() %>
         <!-- buttons show if IDs are deep-equals -->
-            <button type="button">Edit</button>
-            <button type="button">Delete</button>
+          <form method="post" action="/editchat">
+          <br/>
+          <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
+          <button>Delete</button>
+          </form>
         <% }
         //}
         %>
       </li>
       </ul>
     </div>
-
     <hr/>
 
     <%
