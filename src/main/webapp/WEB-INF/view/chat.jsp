@@ -65,20 +65,6 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     <a href="/activity.jsp">Activity</a>
   </nav>
 
-<!-- This is the test UI for the pop up box -->
-    <button onclick="editMessage(12312)">Try it</button>
-    <script type="text/javascript">
-    function editMessage(msgID) {
-        var currMessage = msgID;
-        var previousMessage = prompt("Please enter your new message", "/* get the content of the current message here */");
-        console.log("/* put the current message id here for debugging purposes */");
-
-    }
-
-    </script>
-
-<!-- End of the test UI for the pop up box -->
-
 
   <div id="container">
 
@@ -90,19 +76,14 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     <div id="chat">
       <ul>
 
-       <script src="http://code.jquery.com/jquery-latest.js"></script>
       <script type="text/javascript">
          function edit(messageID, convoID) {
            console.log("button clicked");
                 var xhttp = new XMLHttpRequest();
-                var r = prompt("please tell");
+                var newMessage = prompt("What is your new message?");
                 xhttp.open("POST", "/editchat", true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                console.log("entered editservlet");
-                console.log(xhttp.readyState);
-                console.log(messageID);
-                xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+r);
-
+                xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+newMessage);
          }
       </script>
 
@@ -115,7 +96,7 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
         <!-- buttons show if IDs are deep-equals -->
           <form method="post" action="/editchat">
           <br/>
-          <input type="button" id="btn" value="edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
+          <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
           <button>Delete</button>
           </form>
         <% }

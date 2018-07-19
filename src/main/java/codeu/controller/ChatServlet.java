@@ -170,13 +170,6 @@ public class ChatServlet extends HttpServlet {
             Instant.now());
 
     messageStore.addMessage(message);
-
-    // getting info from the client side for editing msg
-    String a = request.getParameter("txtname");
-    System.out.println(a);
-    System.out.println("jfdsiofjsdi");
-
-
     // redirect to a GET request
     response.sendRedirect("/chat/" + conversationTitle);
 

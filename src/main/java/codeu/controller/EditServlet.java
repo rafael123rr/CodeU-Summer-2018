@@ -107,12 +107,9 @@ public class EditServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        System.out.println("Entered into doPost");
         String newMsg = request.getParameter("newMsg");
-        System.out.println(newMsg);
         UUID msgID = UUID.fromString(request.getParameter("msgID"));
         UUID conversationID = UUID.fromString(request.getParameter("conversationID"));
         editMessage(conversationID, msgID, newMsg);
-        System.out.println("hey");
     }
 }
