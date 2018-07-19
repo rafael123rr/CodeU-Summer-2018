@@ -19,6 +19,8 @@
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
+<c:import url="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
+
 <%
 //User currentUser = (User) request.getSession().getAttribute("user");
 List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
@@ -49,6 +51,7 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     };
   </script>
 </head>
+
 <body onload="scrollChat()">
 
   <nav>
@@ -63,6 +66,7 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     <a href="/activity.jsp">Activity</a>
   </nav>
 
+
   <div id="container">
 
     <h1><%= conversation.getTitle() %>
@@ -72,28 +76,41 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
 
     <div id="chat">
       <ul>
+
+      <script type="text/javascript">
+         function edit(messageID, convoID) {
+           console.log("button clicked");
+                var xhttp = new XMLHttpRequest();
+                var newMessage = prompt("What is your new message?");
+                xhttp.open("POST", "/editchat", true);
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+newMessage);
+         }
+      </script>
+
     <%
+      User user = (User) request.getSession().getAttribute("currentUser");
       for (Message message : messages) {
         String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
         UUID authorId = message.getAuthorId();
+
     %>
       <li><strong><%= author %>:</strong>
-        <%= message.getContent() %>
-        <%
-          UUID currMessage = message.getId();
-          //User user = thisUserStore.getUser((String) request.getSession().getAttribute("currentUser"));
-          User user = (User) request.getSession().getAttribute("currentUser");
-          if (authorId == user.getId()) {
-            %>
-              <button onclick="editMessage()" type="button">Edit</button>
-              <button type="button">Delete</button>
-            <%}
-      }
+       <span id="<%= message.getId()%>"> <%= message.getContent() %>
+    <%
+          if (user.getId().equals(authorId)) {
     %>
+          <form method="post" action="/editchat">
+          <br/>
+          <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
+          <button>Delete</button>
+          </form>
+        <% }
+        }
+      %>
       </li>
       </ul>
     </div>
-
     <hr/>
 
     <%

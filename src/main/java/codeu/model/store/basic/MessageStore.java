@@ -90,8 +90,29 @@ public class MessageStore {
     return messagesInConversation;
   }
 
+/** Access a Message based on the message id and a conversation of messages */
+  public Message getMessageInConversation(List<Message> messages, UUID messageId) {
+
+    int counter = 0;
+
+    while (counter < messages.size() && messages.get(counter).getId() != messageId) {
+      counter++;
+    }
+
+    return messages.get(counter);
+  }
+
+
   /** Sets the List of Messages stored by this MessageStore. */
   public void setMessages(List<Message> messages) {
     this.messages = messages;
+  }
+  /** Changes the stored message in the given message */
+  public void editMessage(List<Message> messages, UUID messageToChangeID, String newContent) {
+    for (Message msg : messages) {
+      if (msg.getId().equals(messageToChangeID)) {
+        msg.setContent(newContent);
+      }
+    }
   }
 }

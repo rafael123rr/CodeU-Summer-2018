@@ -79,6 +79,16 @@ public class ChatServlet extends HttpServlet {
   }
 
   /**
+   * Changes the message from the previous message in MessageStore to the new message
+   * given by the input from the user's reply to the prompt box - called in the POST method
+   */
+  // TODO: figure out where to call this function; perhaps something onClick with btn or in the Post request
+  void editMessage(UUID conversationID, UUID messageID, String newContent) {
+    messageStore.editMessage(messageStore.getMessagesInConversation(conversationID), messageID, newContent);
+  }
+
+
+  /**
    * This function fires when a user navigates to the chat page. It gets the conversation title from
    * the URL, finds the corresponding Conversation, and fetches the messages in that Conversation.
    * It then forwards to chat.jsp for rendering.
@@ -120,9 +130,10 @@ public class ChatServlet extends HttpServlet {
 
     String username = (String) request.getSession().getAttribute("user");
     String password = (String) request.getSession().getAttribute("password");
-    request.getSession().setAttribute("currentUser", username);
+    User user = userStore.getUser(username);
+    //User thisUser = (User) request.getSession().getAttribute("user");
+    //request.getSession().setAttribute("currentUser", user);
     request.getSession().setAttribute("password", password);
-    User user = (User) request.getSession().getAttribute("currentUser");
     //System.out.println("User's name is " + user.getName());
     if (username == null) {
       // user is not logged in, don't let them add a message
@@ -147,9 +158,9 @@ public class ChatServlet extends HttpServlet {
     //Parses message to change message from BBcode to html with basic tags
     TextProcessor processor = BBProcessorFactory.getInstance().create();
     cleanedMessageContent = processor.process(cleanedMessageContent);
-    cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages​());
-    //System.out.println("getId is " + conversation.getId());
-    //System.out.println("user id is " + user.getId());
+    cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages());
+
+
     Message message =
         new Message(
             UUID.randomUUID(),
@@ -159,8 +170,9 @@ public class ChatServlet extends HttpServlet {
             Instant.now());
 
     messageStore.addMessage(message);
-
     // redirect to a GET request
     response.sendRedirect("/chat/" + conversationTitle);
+
+
   }
 }
