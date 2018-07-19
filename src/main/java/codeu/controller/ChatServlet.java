@@ -75,8 +75,7 @@ public class ChatServlet extends HttpServlet {
    * by the test framework or the servlet's init() function.
    */
   void setUserStore(UserStore userStore) {
-    this.userStore = userStore;
-  }
+   }
 
   /**
    * Changes the message from the previous message in MessageStore to the new message
@@ -86,6 +85,19 @@ public class ChatServlet extends HttpServlet {
   void editMessage(UUID conversationID, UUID messageID, String newContent) {
     messageStore.editMessage(messageStore.getMessagesInConversation(conversationID), messageID, newContent);
   }
+
+  void Message getMessageInConversation(List<Message> messages, UUID messageId) {
+
+    int counter = 0;
+
+    while (counter < messages.size() && messages.get(counter).getId() != messageId){
+      counter++;
+    }
+
+    return messages.get(counter);
+  }
+
+
 
 
   /**

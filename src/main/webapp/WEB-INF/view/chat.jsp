@@ -65,16 +65,19 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
 
 <!-- This is the test UI for the pop up box -->
     <button onclick="getMessageId()">Try it</button>
+
     <script>
     function getMessageId() {
         var message = "/* get the current message or current message ID here */";
         var previousMessage = prompt("Please enter your new message", "/* get the content of the current message here */");
         console.log("/* put the current message id here for debugging purposes */");
     }
-
-    </script>
+    //creating function in which will take action to delete message
+    
+    </script>s
 
 <!-- End of the test UI for the pop up box -->
+
 
 
   <div id="container">
@@ -93,8 +96,9 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
       <li><strong><%= author %>:</strong>
         <%= message.getContent() %>
         <!-- buttons show if IDs are deep-equals -->
-            <button type="button">Edit</button>
-            <button type="button">Delete</button>
+
+          <button type="button">Edit</button>
+          <button type="button">Delete</button>
         <% }
         //}
         %>
