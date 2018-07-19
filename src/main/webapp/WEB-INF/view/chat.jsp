@@ -77,10 +77,10 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
       <ul>
 
       <script type="text/javascript">
-         function edit(messageID, convoID) {
+         function edit(messageID, convoID, messageContent) {
            console.log("button clicked");
                 var xhttp = new XMLHttpRequest();
-                var newMessage = prompt("What is your new message?");
+                var newMessage = prompt("What is your new message?", messageContent);
                 xhttp.open("POST", "/editchat", true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+newMessage);
@@ -96,7 +96,7 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
         <!-- buttons show if IDs are deep-equals -->
           <form method="post" action="/editchat">
           <br/>
-          <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
+          <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>', '<%= message.getContent() %>')"></input>
           <button>Delete</button>
           </form>
         <% }
