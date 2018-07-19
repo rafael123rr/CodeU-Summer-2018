@@ -20,6 +20,7 @@
 <%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%
+//User currentUser = (User) request.getSession().getAttribute("user");
 List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
@@ -74,22 +75,21 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     <%
       for (Message message : messages) {
         String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
+        UUID authorId = message.getAuthorId();
     %>
       <li><strong><%= author %>:</strong>
         <%= message.getContent() %>
-        <!-- buttons show if IDs are deep-equals -->
-            <%
-              UUID currMessage = message.getId();
-              String userName = (String) request.getSession().getAttribute("currentUser");
-              User currentUser = UserStore.getInstance().getUser(userName);
-              UUID currentUserId = currentUser.getId();
-            if (currMessage == currentUserId) {
-              %>
+        <%
+          UUID currMessage = message.getId();
+          //User user = thisUserStore.getUser((String) request.getSession().getAttribute("currentUser"));
+          User user = (User) request.getSession().getAttribute("currentUser");
+          if (authorId == user.getId()) {
+            %>
               <button onclick="editMessage()" type="button">Edit</button>
               <button type="button">Delete</button>
-             <%}
-        }
-        %>
+            <%}
+      }
+    %>
       </li>
       </ul>
     </div>

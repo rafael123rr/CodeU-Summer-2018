@@ -47,7 +47,7 @@
     </nav>
 
     <% if (request.getSession().getAttribute("user") == null) { %>
-      <p><a href="/login">Login</a> to see your activity.</p>
+      <p><a href="/login.jsp">Login</a> to see your activity.</p>
     <% } %>
     <h1><strong>Activity Feed</strong></h1>
     <% List<Activity> activities = (List<Activity>) request.getAttribute("activities");

@@ -89,7 +89,7 @@ public class ChatServlet extends HttpServlet {
     String requestUrl = request.getRequestURI();
     String conversationTitle = requestUrl.substring("/chat/".length());
 
-    String loggedInUser = (String)request.getSession().getAttribute("user");
+    //String loggedInUser = (String) request.getSession().getAttribute("user");
 
     Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
     if (conversation == null) {
@@ -102,7 +102,7 @@ public class ChatServlet extends HttpServlet {
     UUID conversationId = conversation.getId();
 
     List<Message> messages = messageStore.getMessagesInConversation(conversationId);
-
+    request.setAttribute("userStore", userStore);
     request.setAttribute("conversation", conversation);
     request.setAttribute("messages", messages);
     request.getRequestDispatcher("/WEB-INF/view/chat.jsp").forward(request, response);
@@ -120,10 +120,10 @@ public class ChatServlet extends HttpServlet {
 
     String username = (String) request.getSession().getAttribute("user");
     String password = (String) request.getSession().getAttribute("password");
-    User user = userStore.getUser(username);
-    //User thisUser = userStore.getId(username);
     request.getSession().setAttribute("currentUser", username);
     request.getSession().setAttribute("password", password);
+    User user = (User) request.getSession().getAttribute("currentUser");
+    //System.out.println("User's name is " + user.getName());
     if (username == null) {
       // user is not logged in, don't let them add a message
       response.sendRedirect("/login");
@@ -148,7 +148,8 @@ public class ChatServlet extends HttpServlet {
     TextProcessor processor = BBProcessorFactory.getInstance().create();
     cleanedMessageContent = processor.process(cleanedMessageContent);
     cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages​());
-
+    //System.out.println("getId is " + conversation.getId());
+    //System.out.println("user id is " + user.getId());
     Message message =
         new Message(
             UUID.randomUUID(),
