@@ -51,6 +51,7 @@
     <servlet-class>codeu.controller.ConversationServlet</servlet-class>
   </servlet>
 
+
   <servlet-mapping>
     <servlet-name>ConversationServlet</servlet-name>
     <url-pattern>/conversations</url-pattern>
@@ -76,6 +77,27 @@
     <servlet-name>ChatServlet</servlet-name>
     <url-pattern>/chat/*</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>EditServlet</servlet-name>
+    <servlet-class>codeu.controller.EditServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>EditServlet</servlet-name>
+    <url-pattern>/editchat</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DeleteServlet</servlet-name>
+    <servlet-class>codeu.controller.DeleteServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteServlet</servlet-name>
+    <url-pattern>/deletechat</url-pattern>
+  </servlet-mapping>
+
 
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>

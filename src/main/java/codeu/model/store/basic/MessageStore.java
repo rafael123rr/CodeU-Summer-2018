@@ -110,8 +110,16 @@ public class MessageStore {
   /** Changes the stored message in the given message */
   public void editMessage(List<Message> messages, UUID messageToChangeID, String newContent) {
     for (Message msg : messages) {
-      if (msg.getId() == messageToChangeID) {
+      if (msg.getId().equals(messageToChangeID)) {
         msg.setContent(newContent);
+      }
+    }
+  }
+
+  public void deleteMessage(List<Message> messages, UUID messageToChangeID) {
+    for (Message msg : messages) {
+      if (msg.getId().equals(messageToChangeID)) {
+        messages.remove(msg);
       }
     }
   }

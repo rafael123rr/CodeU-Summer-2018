@@ -78,29 +78,6 @@ public class ChatServlet extends HttpServlet {
    }
 
   /**
-   * Changes the message from the previous message in MessageStore to the new message
-   * given by the input from the user's reply to the prompt box - called in the POST method
-   */
-  // TODO: figure out where to call this function; perhaps something onClick with btn or in the Post request
-  void editMessage(UUID conversationID, UUID messageID, String newContent) {
-    messageStore.editMessage(messageStore.getMessagesInConversation(conversationID), messageID, newContent);
-  }
-
-  void Message getMessageInConversation(List<Message> messages, UUID messageId) {
-
-    int counter = 0;
-
-    while (counter < messages.size() && messages.get(counter).getId() != messageId){
-      counter++;
-    }
-
-    return messages.get(counter);
-  }
-
-
-
-
-  /**
    * This function fires when a user navigates to the chat page. It gets the conversation title from
    * the URL, finds the corresponding Conversation, and fetches the messages in that Conversation.
    * It then forwards to chat.jsp for rendering.
@@ -148,6 +125,7 @@ public class ChatServlet extends HttpServlet {
     User user = userStore.getUser(username);
     if (user == null) {
       // user was not found, don't let them add a message
+      System.out.println("User not found: " + username);
       response.sendRedirect("/login");
       return;
     }
@@ -170,7 +148,8 @@ public class ChatServlet extends HttpServlet {
     //Parses message to change message from BBcode to html with basic tags
     TextProcessor processor = BBProcessorFactory.getInstance().create();
     cleanedMessageContent = processor.process(cleanedMessageContent);
-    cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages​());
+    cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages());
+
 
     Message message =
         new Message(
@@ -181,8 +160,9 @@ public class ChatServlet extends HttpServlet {
             Instant.now());
 
     messageStore.addMessage(message);
-
     // redirect to a GET request
     response.sendRedirect("/chat/" + conversationTitle);
+
+
   }
 }
