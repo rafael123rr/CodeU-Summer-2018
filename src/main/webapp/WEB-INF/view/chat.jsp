@@ -89,7 +89,7 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
       </script>
 
     <%
-      User user = (User) request.getSession().getAttribute("currentUser");
+      User user = thisUserStore.getUser("currentUser");
       for (Message message : messages) {
         String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
         UUID authorId = message.getAuthorId();

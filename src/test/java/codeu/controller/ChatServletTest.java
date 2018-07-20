@@ -133,6 +133,7 @@ public class ChatServletTest {
   @Test
   public void testDoPost_ConversationNotFound() throws IOException, ServletException {
     Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/test_conversation");
+    Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/bad_conversation");
     Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
 
     User fakeUser =

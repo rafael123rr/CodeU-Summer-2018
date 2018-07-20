@@ -138,12 +138,14 @@ public class ChatServlet extends HttpServlet {
     if (username == null) {
       // user is not logged in, don't let them add a message
       response.sendRedirect("/login");
-      //return;
+      return;
     }
+
     String requestUrl = request.getRequestURI();
     String conversationTitle = requestUrl.substring("/chat/".length());
-
+    System.out.println("Request url is " + requestUrl);
     Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
+
     if (conversation == null) {
       // couldn't find conversation, redirect to conversation list
       response.sendRedirect("/conversations");
@@ -160,7 +162,6 @@ public class ChatServlet extends HttpServlet {
     cleanedMessageContent = processor.process(cleanedMessageContent);
     cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages());
 
-
     Message message =
         new Message(
             UUID.randomUUID(),
@@ -172,7 +173,5 @@ public class ChatServlet extends HttpServlet {
     messageStore.addMessage(message);
     // redirect to a GET request
     response.sendRedirect("/chat/" + conversationTitle);
-
-
   }
 }
