@@ -18,8 +18,9 @@ import codeu.model.data.Conversation;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-/**
+  /**
  * Store class that uses in-memory data structures to hold values and automatically loads from and
  * saves to PersistentStorageAgent. It's a singleton so all servlet classes can access the same
  * instance.
@@ -97,6 +98,16 @@ public class ConversationStore {
   public Conversation getConversationWithTitle(String title) {
     for (Conversation conversation : conversations) {
       if (conversation.getTitle().equals(title)) {
+        return conversation;
+      }
+    }
+    return null;
+  }
+
+  /** Find and return the Conversation with the given title. */
+  public Conversation getConversationWithUUID(UUID convoID) {
+    for (Conversation conversation : conversations) {
+      if (conversation.getId().equals(convoID)) {
         return conversation;
       }
     }
