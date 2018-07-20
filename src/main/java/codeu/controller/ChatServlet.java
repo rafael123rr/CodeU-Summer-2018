@@ -75,7 +75,8 @@ public class ChatServlet extends HttpServlet {
    * by the test framework or the servlet's init() function.
    */
   void setUserStore(UserStore userStore) {
-   }
+    this.userStore = userStore;
+  }
 
   /**
    * This function fires when a user navigates to the chat page. It gets the conversation title from
@@ -125,7 +126,6 @@ public class ChatServlet extends HttpServlet {
     User user = userStore.getUser(username);
     if (user == null) {
       // user was not found, don't let them add a message
-      System.out.println("User not found: " + username);
       response.sendRedirect("/login");
       return;
     }
