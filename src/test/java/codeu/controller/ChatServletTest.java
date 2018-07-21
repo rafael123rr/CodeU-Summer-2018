@@ -122,6 +122,7 @@ public class ChatServletTest {
   @Test
   public void testDoPost_InvalidUser() throws IOException, ServletException {
     Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/test_conversation");
     Mockito.when(mockUserStore.getUser("test_username")).thenReturn(null);
 
     chatServlet.doPost(mockRequest, mockResponse);

@@ -127,16 +127,15 @@ public class ChatServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-
     String username = (String) request.getSession().getAttribute("user");
     String password = (String) request.getSession().getAttribute("password");
     User user = userStore.getUser(username);
-    //User thisUser = (User) request.getSession().getAttribute("user");
-    //request.getSession().setAttribute("currentUser", user);
-    request.getSession().setAttribute("password", password);
-    //System.out.println("User's name is " + user.getName());
     if (username == null) {
       // user is not logged in, don't let them add a message
+      response.sendRedirect("/login");
+      return;
+    }
+    if (user == null) {
       response.sendRedirect("/login");
       return;
     }
