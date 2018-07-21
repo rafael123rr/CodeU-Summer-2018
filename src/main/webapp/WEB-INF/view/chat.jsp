@@ -22,6 +22,7 @@
 <c:import url="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
 
 <%
+//User currentUser = (User) request.getSession().getAttribute("user");
 List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
@@ -89,20 +90,25 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
       </script>
 
     <%
+      String username = (String) request.getSession().getAttribute("user");
+      User user = thisUserStore.getUser(username);
       for (Message message : messages) {
         String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
+        UUID authorId = message.getAuthorId();
     %>
       <li><strong><%= author %>:</strong>
        <span id="<%= message.getId()%>"> <%= message.getContent() %>
-        <!-- buttons show if IDs are deep-equals -->
+    <%
+          if (user.getId().equals(authorId)) {
+    %>
           <form method="post" action="/editchat">
           <br/>
           <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>', '<%= message.getContent() %>')"></input>
           <button>Delete</button>
           </form>
         <% }
-        //}
-        %>
+        }
+      %>
       </li>
       </ul>
     </div>
