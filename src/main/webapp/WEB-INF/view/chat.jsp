@@ -84,7 +84,8 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
                 xhttp.open("POST", "/editchat", true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+newMessage);
-         }
+                location.reload();
+           }
       </script>
 
     <%
