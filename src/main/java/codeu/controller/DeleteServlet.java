@@ -34,7 +34,7 @@ import org.kefirsf.bb.BBProcessorFactory;
 import org.kefirsf.bb.TextProcessor;
 
 /** Servlet class responsible for the chat page. */
-public class EditServlet extends HttpServlet {
+public class DeleteServlet extends HttpServlet {
 
     /** Store class that gives access to Conversations. */
     private ConversationStore conversationStore;
@@ -78,17 +78,9 @@ public class EditServlet extends HttpServlet {
         this.userStore = userStore;
     }
 
-    /**
-     * Changes the message from the previous message in MessageStore to the new message
-     * given by the input from the user's reply to the prompt box - called in the POST method
-     */
-    void editMessage(UUID conversationID, UUID messageID, String newContent) {
-        System.out.println("inside editMessage of EditServlet");
-        messageStore.editMessage(messageStore.getMessagesInConversation(conversationID), messageID, newContent);
-    }
 
     void deleteMessage(UUID conversationID, UUID messageID) {
-        System.out.println("inside deleteMessage of EditServlet");
+        System.out.println("inside deleteMessage of DeleteServlet");
         messageStore.deleteMessage(messageStore.getMessagesInConversation(conversationID), messageID);
     }
 
@@ -112,9 +104,8 @@ public class EditServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String newMsg = request.getParameter("newMsg");
         UUID msgID = UUID.fromString(request.getParameter("msgID"));
         UUID conversationID = UUID.fromString(request.getParameter("conversationID"));
-        editMessage(conversationID, msgID, newMsg);
+        deleteMessage(conversationID, msgID);
     }
 }
