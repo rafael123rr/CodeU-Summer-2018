@@ -89,6 +89,8 @@ public class ChatServlet extends HttpServlet {
     String requestUrl = request.getRequestURI();
     String conversationTitle = requestUrl.substring("/chat/".length());
 
+    //String loggedInUser = (String) request.getSession().getAttribute("user");
+
     Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
     if (conversation == null) {
       // couldn't find conversation, redirect to conversation list
@@ -100,7 +102,7 @@ public class ChatServlet extends HttpServlet {
     UUID conversationId = conversation.getId();
 
     List<Message> messages = messageStore.getMessagesInConversation(conversationId);
-
+    request.setAttribute("userStore", userStore);
     request.setAttribute("conversation", conversation);
     request.setAttribute("messages", messages);
     request.getRequestDispatcher("/WEB-INF/view/chat.jsp").forward(request, response);
@@ -115,25 +117,24 @@ public class ChatServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-
     String username = (String) request.getSession().getAttribute("user");
+    String password = (String) request.getSession().getAttribute("password");
+    User user = userStore.getUser(username);
     if (username == null) {
       // user is not logged in, don't let them add a message
       response.sendRedirect("/login");
       return;
     }
-
-    User user = userStore.getUser(username);
     if (user == null) {
-      // user was not found, don't let them add a message
       response.sendRedirect("/login");
       return;
     }
 
     String requestUrl = request.getRequestURI();
     String conversationTitle = requestUrl.substring("/chat/".length());
-
+    System.out.println("Request url is " + requestUrl);
     Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
+
     if (conversation == null) {
       // couldn't find conversation, redirect to conversation list
       response.sendRedirect("/conversations");
@@ -150,7 +151,6 @@ public class ChatServlet extends HttpServlet {
     cleanedMessageContent = processor.process(cleanedMessageContent);
     cleanedMessageContent = Jsoup.clean(cleanedMessageContent, Whitelist.basicWithImages());
 
-
     Message message =
         new Message(
             UUID.randomUUID(),
@@ -162,7 +162,5 @@ public class ChatServlet extends HttpServlet {
     messageStore.addMessage(message);
     // redirect to a GET request
     response.sendRedirect("/chat/" + conversationTitle);
-
-
   }
 }

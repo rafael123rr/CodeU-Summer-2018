@@ -27,7 +27,7 @@
 
   <nav>
     <a id="navTitle" href="/">Chatty Lambdas Chat App</a>
-    <a href="/conversations.jsp">Conversations</a>
+    <a href="/conversations">Conversations</a>
       <% if (request.getSession().getAttribute("user") != null) { %>
     <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
     <% } else { %>

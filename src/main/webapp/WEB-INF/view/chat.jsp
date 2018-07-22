@@ -22,6 +22,7 @@
 <c:import url="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
 
 <%
+//User currentUser = (User) request.getSession().getAttribute("user");
 List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
@@ -96,13 +97,14 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
       <ul>
 
       <script type="text/javascript">
-         function edit(messageID, convoID) {
+         function edit(messageID, convoID, messageContent) {
            console.log("button clicked");
                 var xhttp = new XMLHttpRequest();
-                var newMessage = prompt("What is your new message?");
+                var newMessage = prompt("What is your new message?", messageContent);
                 xhttp.open("POST", "/editchat", true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+newMessage);
+<<<<<<< HEAD
          }
 
          function deleteMessage(messageID, convoID) {
@@ -112,14 +114,22 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhttp.send("msgID="+messageID+"&conversationID=" + convoID);
          }
+=======
+                location.reload();
+           }
+>>>>>>> 48effe8a99ece050aaac26e83d155fdf79561f20
       </script>
 
     <%
+      String username = (String) request.getSession().getAttribute("user");
+      User user = thisUserStore.getUser(username);
       for (Message message : messages) {
         String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
+        UUID authorId = message.getAuthorId();
     %>
       <li><strong><%= author %>:</strong>
        <span id="<%= message.getId()%>"> <%= message.getContent() %>
+<<<<<<< HEAD
         <!-- buttons show if IDs are deep-equals -->
 
           <button type="button">Edit</button>
@@ -128,6 +138,15 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
           <form method="post" action="/editchat">
           <br/>
           <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
+=======
+    <%
+          if (user.getId().equals(authorId)) {
+    %>
+          <form method="post" action="/editchat">
+          <br/>
+          <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>', '<%= message.getContent() %>')"></input>
+          <button>Delete</button>
+>>>>>>> 48effe8a99ece050aaac26e83d155fdf79561f20
           </form>
 
           <form method="post" action="/deletechat">
@@ -136,8 +155,8 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
           </form>
 
         <% }
-        //}
-        %>
+        }
+      %>
       </li>
       </ul>
     </div>

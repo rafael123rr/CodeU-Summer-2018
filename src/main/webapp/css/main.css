@@ -12,20 +12,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@import url('https://fonts.googleapis.com/css?family=Karla');
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Karla', sans-serif;
   line-height: 1.6;
   font-size: 18px;
   line-height: 1.6;
   color: #444;
-  background-color: #00c6ff;
+  background-color: #eeeeee;
   /*#eeeeee;*/
 }
 
 nav {
-  background-color: #283593;
+  background-color: #468499;
 }
 
 nav a {
