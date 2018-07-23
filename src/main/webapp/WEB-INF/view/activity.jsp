@@ -36,11 +36,11 @@
 
     <nav>
       <a id="navTitle" href="/">Chatty Lambdas Chat App</a>
-      <a href="/conversations">Conversations</a>
+      <a href="/conversations">Conversations You're In</a>
         <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
       <% } else { %>
-        <a href="/login">Login</a>
+        <a href="/login.jsp">Login</a> <!--testing ".jsp"-->
       <% } %>
       <a href="/about.jsp">About</a>
       <a href="/activity.jsp">Activity</a>
@@ -50,9 +50,9 @@
       <p><a href="/login.jsp">Login</a> to see your activity.</p>
     <% } %>
     <h1><strong>Activity Feed</strong></h1>
-    <% 
+    <%
        List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
-       UserStore users = (UserStore) request.getAttribute("users");
+       //UserStore users = (UserStore) request.getAttribute("users");
 
        if (conversations.isEmpty()) {
     %>

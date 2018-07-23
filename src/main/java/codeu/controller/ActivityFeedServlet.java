@@ -61,14 +61,14 @@ public class ActivityFeedServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-        List<User> users= userStore.getUsers();
-        request.setAttribute("users", users);
+        //List<User> users= userStore.getUsers();
+        //request.setAttribute("users", users);
         request.getRequestDispatcher("/WEB-INF/view/activity").forward(request, response);
         List<Conversation> conversations = conversationStore.getAllConversations();
         request.setAttribute("conversations", conversations);
-        request.getRequestDispatcher("/WEB-INF/view/activity").forward(request, response);
-        List<Activity> activities = activityStore.getActivities();
-        request.setAttribute("activities", activities);
+        //request.getRequestDispatcher("/WEB-INF/view/activity").forward(request, response);
+        // List<Activity> activities = activityStore.getActivities();
+        // request.setAttribute("activities", activities);
         request.getRequestDispatcher("/WEB-INF/view/activity").forward(request, response);
   }
 
@@ -81,7 +81,7 @@ public class ActivityFeedServlet extends HttpServlet {
         String username = (String) request.getSession().getAttribute("user");
         if (username == null) {
           response.sendRedirect("/login");
+          return;
         }
-        return;
   }
 }

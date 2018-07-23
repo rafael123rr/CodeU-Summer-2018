@@ -13,6 +13,20 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.UUID" %>
+<%@ page import="codeu.model.data.Conversation" %>
+<%@ page import="codeu.model.data.Message" %>
+<%@ page import="codeu.model.data.User" %>
+<%@ page import="codeu.model.store.basic.UserStore" %>
+
+<%
+List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
+Conversation conversation = (Conversation) request.getAttribute("conversation");
+List<Message> messages = (List<Message>) request.getAttribute("messages");
+UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +54,14 @@
       <h2>Welcome!</h2>
 
       <ul>
-        <li><a href="/login">Login</a> to get started.</li>
+        <%
+          String username = (String) request.getSession().getAttribute("user");
+          if (username == null) {
+        %>
+          <li><a href="/login">Login</a> to get started.</li>
+        <%
+          }
+        %>
         <li>Go to the <a href="/conversations">conversations</a> page to
             create or join a conversation.</li>
         <li>View the <a href="/about.jsp">about</a> page to learn more about the
