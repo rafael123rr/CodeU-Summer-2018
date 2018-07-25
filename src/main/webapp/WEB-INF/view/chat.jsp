@@ -100,13 +100,27 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
          }
 
                 location.reload();
-           }
-
+        }
       </script>
 
+      <script type="text/javascript">
+              function edit(messageID, convoID) {
+                 console.log("button clicked");
+                      var xhttp = new XMLHttpRequest();
+                      var r = prompt("please tell");
+                      xhttp.open("POST", "/editchat", true);
+                      xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                      console.log("entered editservlet");
+                      console.log(xhttp.readyState);
+                      console.log(messageID);
+                      xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+r);
+
+               }
+            </script>
     <%
       String username = (String) request.getSession().getAttribute("user");
       User user = thisUserStore.getUser(username);
+
       for (Message message : messages) {
         String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
         UUID authorId = message.getAuthorId();

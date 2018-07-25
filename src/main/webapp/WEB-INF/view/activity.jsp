@@ -9,6 +9,7 @@
 <%@ page import="codeu.model.data.Activity" %>
 <%@ page import="codeu.model.store.basic.ActivityStore" %>
 
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -29,21 +30,21 @@
       function scrollChat() {
         var chatDiv = document.getElementById('chat');
         chatDiv.scrollTop = chatDiv.scrollHeight;
-      };
+      }
     </script>
   </head>
   <body>
 
     <nav>
       <a id="navTitle" href="/">Chatty Lambdas Chat App</a>
-      <a href="/conversations">Conversations You're In</a>
+      <a href="/conversations.jsp">Conversations</a>
         <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
       <% } else { %>
         <a href="/login.jsp">Login</a> <!--testing ".jsp"-->
       <% } %>
       <a href="/about.jsp">About</a>
-      <a href="/activity.jsp">Activity</a>
+      <a href="/activity,jsp">Activity</a>
     </nav>
 
     <% if (request.getSession().getAttribute("user") == null) { %>
@@ -51,8 +52,7 @@
     <% } %>
     <h1><strong>Activity Feed</strong></h1>
     <%
-       List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
-       //UserStore users = (UserStore) request.getAttribute("users");
+      List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
 
        if (conversations.isEmpty()) {
     %>

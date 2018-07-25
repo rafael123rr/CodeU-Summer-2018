@@ -63,13 +63,13 @@ public class ActivityFeedServlet extends HttpServlet {
       throws IOException, ServletException {
         //List<User> users= userStore.getUsers();
         //request.setAttribute("users", users);
-        request.getRequestDispatcher("/WEB-INF/view/activity").forward(request, response);
+        //request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
         List<Conversation> conversations = conversationStore.getAllConversations();
         request.setAttribute("conversations", conversations);
-        //request.getRequestDispatcher("/WEB-INF/view/activity").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
         // List<Activity> activities = activityStore.getActivities();
         // request.setAttribute("activities", activities);
-        request.getRequestDispatcher("/WEB-INF/view/activity").forward(request, response);
+        //request.getRequestDispatcher("/WEB-INF/view/activity").forward(request, response);
   }
 
   /**
