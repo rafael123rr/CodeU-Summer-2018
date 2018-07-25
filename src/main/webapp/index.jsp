@@ -64,8 +64,8 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
         <%
           }
         %>
-        <li>Go to the <a href="/conversations">conversations</a> page to
-            create or join a conversation.</li>
+        <%-- <li>Go to the <a href="/conversations">conversations</a> page to
+            create or join a conversation.</li> --%>
         <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
       </ul>
