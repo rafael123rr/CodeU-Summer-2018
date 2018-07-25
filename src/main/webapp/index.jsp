@@ -38,9 +38,10 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
 
   <nav>
     <a id="navTitle" href="/">Chatty Lambdas Chat App</a>
-    <a href="/conversations">Conversations</a>
     <% if(request.getSession().getAttribute("user") != null){ %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
+      <a href="/conversations">Conversations</a>
+      <a href="/activity.jsp">Activity</a>
     <% } else{ %>
       <a href="/login">Login</a>
     <% } %>

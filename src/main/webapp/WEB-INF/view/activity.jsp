@@ -37,7 +37,7 @@
 
     <nav>
       <a id="navTitle" href="/">Chatty Lambdas Chat App</a>
-      <a href="/conversations.jsp">Conversations</a>
+      <a href="/conversations">Conversations</a>
         <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
       <% } else { %>
@@ -50,7 +50,7 @@
     <% if (request.getSession().getAttribute("user") == null) { %>
       <p><a href="/login.jsp">Login</a> to see your activity.</p>
     <% } %>
-    <h1><strong>Activity Feed</strong></h1>
+    <h1><strong>Conversations You're In</strong></h1>
     <%
       List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
 
