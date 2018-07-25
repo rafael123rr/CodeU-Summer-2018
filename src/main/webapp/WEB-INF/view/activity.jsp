@@ -44,7 +44,7 @@
         <a href="/login.jsp">Login</a>
       <% } %>
       <a href="/about.jsp">About</a>
-      <a href="/activity,jsp">Activity</a>
+      <a href="/activity.jsp">Activity</a>
     </nav>
 
     <% if (request.getSession().getAttribute("user") == null) { %>
