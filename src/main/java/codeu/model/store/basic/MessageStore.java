@@ -119,7 +119,7 @@ public class MessageStore {
   public void deleteMessage(List<Message> messages, UUID messageToChangeID) {
     for (Message msg : messages) {
       if (msg.getId().equals(messageToChangeID)) {
-        msg.setContent("Delete Message");
+        msg.setContent("[deleted]");
       }
     }
   }
