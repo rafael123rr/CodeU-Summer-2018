@@ -45,6 +45,7 @@
             create or join a conversation.</li>
         <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
+        <li>Checkout the BBcode library to fully maximize your experiance <a href="https://en.wikipedia.org/wiki/BBCode">here.</a> </li>
       </ul>
     </div>
   </div>
