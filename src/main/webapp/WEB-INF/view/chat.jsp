@@ -66,26 +66,6 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     <a href="/activity.jsp">Activity</a>
   </nav>
 
-<<<<<<< HEAD
-<!-- This is the test UI for the pop up box -->
-    <button onclick="getMessageId()">Try it</button>
-
-    <script>
-    function getMessageId() {
-        var message = "/* get the current message or current message ID here */";
-        var previousMessage = prompt("Please enter your new message", "/* get the content of the current message here */");
-        console.log("/* put the current message id here for debugging purposes */");
-    }
-    //creating function in which will take action to delete message
-    
-    </script>s
-
-<!-- End of the test UI for the pop up box -->
-
-=======
->>>>>>> b7c16b5a11ed7d6aa16c5513fb47e3bbb67bfa50
-
-
   <div id="container">
 
     <h1><%= conversation.getTitle() %>
@@ -104,7 +84,7 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
                 xhttp.open("POST", "/editchat", true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+newMessage);
-<<<<<<< HEAD
+                location.reload();
          }
 
          function deleteMessage(messageID, convoID) {
@@ -113,12 +93,10 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
                 xhttp.open("POST", "/deletechat", true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhttp.send("msgID="+messageID+"&conversationID=" + convoID);
-         }
-=======
                 location.reload();
-           }
->>>>>>> 48effe8a99ece050aaac26e83d155fdf79561f20
-      </script>
+
+         }
+                 </script>
 
     <%
       String username = (String) request.getSession().getAttribute("user");
@@ -129,29 +107,14 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     %>
       <li><strong><%= author %>:</strong>
        <span id="<%= message.getId()%>"> <%= message.getContent() %>
-<<<<<<< HEAD
-        <!-- buttons show if IDs are deep-equals -->
-
-          <button type="button">Edit</button>
-          <button type="button">Delete</button>
-
-          <form method="post" action="/editchat">
-          <br/>
-          <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
-=======
     <%
           if (user.getId().equals(authorId)) {
     %>
           <form method="post" action="/editchat">
-          <br/>
           <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>', '<%= message.getContent() %>')"></input>
-          <button>Delete</button>
->>>>>>> 48effe8a99ece050aaac26e83d155fdf79561f20
           </form>
-
           <form method="post" action="/deletechat">
           <input type="button" id="btn" value="Delete" onclick="deleteMessage('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
-
           </form>
 
         <% }
