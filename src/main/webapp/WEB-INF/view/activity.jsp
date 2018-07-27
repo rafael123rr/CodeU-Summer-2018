@@ -9,6 +9,7 @@
 <%@ page import="codeu.model.data.Activity" %>
 <%@ page import="codeu.model.store.basic.ActivityStore" %>
 
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -29,7 +30,7 @@
       function scrollChat() {
         var chatDiv = document.getElementById('chat');
         chatDiv.scrollTop = chatDiv.scrollHeight;
-      };
+      }
     </script>
   </head>
   <body>
@@ -40,7 +41,7 @@
         <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
       <% } else { %>
-        <a href="/login">Login</a>
+        <a href="/login.jsp">Login</a>
       <% } %>
       <a href="/about.jsp">About</a>
       <a href="/activity.jsp">Activity</a>
@@ -49,10 +50,9 @@
     <% if (request.getSession().getAttribute("user") == null) { %>
       <p><a href="/login.jsp">Login</a> to see your activity.</p>
     <% } %>
-    <h1><strong>Activity Feed</strong></h1>
-    <% 
-       List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
-       UserStore users = (UserStore) request.getAttribute("users");
+    <h1><strong>Conversations You're In</strong></h1>
+    <%
+      List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
 
        if (conversations.isEmpty()) {
     %>
