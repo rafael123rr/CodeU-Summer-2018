@@ -66,10 +66,6 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     <a href="/activity.jsp">Activity</a>
   </nav>
 
-
-
-
-
   <div id="container">
 
     <h1><%= conversation.getTitle() %>
@@ -88,6 +84,7 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
                 xhttp.open("POST", "/editchat", true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhttp.send("msgID="+messageID+"&conversationID=" + convoID+"&newMsg="+newMessage);
+                location.reload();
 
          }
 
@@ -97,10 +94,9 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
                 xhttp.open("POST", "/deletechat", true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhttp.send("msgID="+messageID+"&conversationID=" + convoID);
-         }
-
                 location.reload();
-        }
+
+         }
       </script>
 
       <script type="text/javascript">
@@ -127,19 +123,15 @@ UserStore thisUserStore = (UserStore) request.getAttribute("userStore");
     %>
       <li><strong><%= author %>:</strong>
        <span id="<%= message.getId()%>"> <%= message.getContent() %>
-
-    <%
+   <%
           if (user.getId().equals(authorId)) {
     %>
           <form method="post" action="/editchat">
-          <br/>
           <input type="button" id="btn" value="Edit" onclick="edit('<%= message.getId()%>','<%= conversation.getId() %>', '<%= message.getContent() %>')"></input>
 
           </form>
-
           <form method="post" action="/deletechat">
           <input type="button" id="btn" value="Delete" onclick="deleteMessage('<%= message.getId()%>','<%= conversation.getId() %>')"></input>
-
           </form>
 
         <% }
